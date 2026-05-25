@@ -1,55 +1,42 @@
 
 import { Layout, Button } from 'antd';
 import { PhoneOutlined } from "@ant-design/icons";
+import Footer_data from "../../assets/Footer_data.json";
 
 const { Footer } = Layout;
 
 function Foot() {
-    return (
-        <Footer id="footer">
-            <div className="col">
-                <h1>Amber Plasma</h1>
-                <p>Proč darovat plazmu</p>
-                <p>Staňte se dárcem</p>
-                <p>Odměny</p>
-                <p>Novinky</p>
-                <p>Slovník pojmů</p>
-                <p>FAQ</p>
+    const linkColumns = [];
+
+
+    Footer_data.links.forEach((section, index) => {
+        linkColumns.push(
+            <div className="col" key={`link-${index}`}>
+                <h1>{section.title}</h1>
+                {section.items.map(item => <p key={item}>{item}</p>)}
             </div>
-
-            <div className="col">
-                <h1>O nás</h1>
-                <p>O společnosti</p>
-                <p>Kariéra</p>
-                <p>Napsali o nás</p>
-                <p>Partneři</p>
-                <p>Kontakty</p>
-                <p>Whistleblowing</p>
-                <p>GDPR</p>
-            </div>
-
-            <div className="col">
-                <h1>Dárcovská centra</h1>
-                <div className="colum">
-                    <div className="col2">
-                        <p>Česká Lípa</p>
-                        <p>Děčín</p>
-                        <p>Cheb</p>
-                        <p>Chomutov</p>
-                        <p>Jablonec nad Nisou</p>
-                        <p>Karlovy Vary</p>
-                    </div>
-
-                    <div className="col2">
-                        <p>Litoměřice</p>
-                        <p>Mladá Boleslav</p>
-                        <p>Plzeň</p>
-                        <p>Praha - Nové Butovice</p>
-                        <p>Příbram</p>
-                        <p>Teplice</p>
-                    </div>
+        );
+    });
+    linkColumns.push(
+        <div className="col" key="centers-col">
+            <h1>{Footer_data.centers.title}</h1>
+            <div className="colum">
+                <div className="col2">
+                    {Footer_data.centers.column1.map((city) => (
+                        <p key={city}>{city}</p>
+                    ))}
+                </div>
+                <div className="col2">
+                    {Footer_data.centers.column2.map((city) => (
+                        <p key={city}>{city}</p>
+                    ))}
                 </div>
             </div>
+        </div>
+    );
+    return (
+        <Footer id="footer">
+            {linkColumns}
 
             <div className="col3">
                 <h1>Bezplatná linka</h1>

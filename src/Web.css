@@ -212,6 +212,19 @@ a {
     background: linear-gradient(209deg, #B90E49 3%, #F1680B 18%, #F9AB00 33%, #F9AB00 67%, #F1680B 82%, #B90E49 97%);
 }
 
+.modal-h,
+.modal-p
+{
+    color: var(--text-a);
+}
+.modal-par
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
 @media screen and (orientation: landscape) {
     #footer {
         flex-wrap: wrap;
