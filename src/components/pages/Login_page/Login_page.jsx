@@ -1,16 +1,14 @@
 import { useState } from 'react';
-import '../../Web.css';
+import '../../../styles/reset.css';
+import './Main.css';
 import { Layout, Input, Divider, Form, Modal } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
-import Head from '../Layout/Head.jsx';
-import Foot from '../Layout/Foot.jsx';
 
-
-import { validateAndShow } from '../../Modal.js';
+import { validateAndShow } from '../../../Modal.js';
 
 const { Content } = Layout;
 
-function Main() {
+function Login_page() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState({ email: '', password: '' });
 
@@ -21,10 +19,9 @@ function Main() {
         setFormData(values);
         validateAndShow(values, showModal);
     };
-
     return (
-        <Layout className="main-layout">
-            <Head />
+
+
 
             <Content id="content">
                 <Form layout="vertical" id="form" onFinish={onFinish}>
@@ -60,9 +57,8 @@ function Main() {
                         <p className="mid-text"><a className="mid-text" href="#">Klikněte zde</a> a nastavte si heslo.</p>
                     </div>
                 </Form>
-            </Content>
 
-            <Foot />
+
 
             <Modal title="Vaše Informace" open={isModalOpen} onOk={handleOk} onCancel={handleOk}>
                 <div className="modal-par">
@@ -74,8 +70,9 @@ function Main() {
                     <p className="modal-p">{formData.password}</p>
                 </div>
             </Modal>
-        </Layout>
+            </Content>
+
     );
 }
 
-export default Main;
+export default Login_page;

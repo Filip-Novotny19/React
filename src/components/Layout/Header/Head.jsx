@@ -1,7 +1,9 @@
 
 import { Layout } from 'antd';
-import amberimg from "../../assets/amber-logo.svg";
-import darceimg from "../../assets/portal-darce-logo.svg";
+import amberimg from "../../../assets/amber-logo.svg";
+import darceimg from "../../../assets/portal-darce-logo.svg";
+import '../../../styles/reset.css';
+import './Head.css';
 
 const { Header } = Layout;
 

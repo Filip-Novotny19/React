@@ -1,7 +1,9 @@
 
 import { Layout, Button } from 'antd';
 import { PhoneOutlined } from "@ant-design/icons";
-import Footer_data from "../../assets/Footer_data.json";
+import Footer_data from "../../../assets/Footer_data.json";
+import '../../../styles/reset.css';
+import './Foot.css';
 
 const { Footer } = Layout;
 
