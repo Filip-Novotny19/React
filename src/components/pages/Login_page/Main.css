@@ -18,6 +18,18 @@
     padding: 0 1rem;
     flex: 1 0 auto;
 }
+.ant-form-item-label > label {
+    display: flex !important;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+
+.ant-form-item-label > label.ant-form-item-required::after {
+    margin:0;
+    padding: 0;
+}
 
 #form {
     width: 100%;
@@ -62,9 +74,14 @@ a {
     border: none;
     border-radius: 20px;
     height: 2rem;
-    width: 100%;
+    width: 40%;
     max-width: 200px;
     margin-top:1rem;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #login:hover
 {
@@ -80,6 +97,10 @@ a {
     width: 100%;
     max-width: 280px;
     margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #signin:hover
 {

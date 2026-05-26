@@ -47,7 +47,7 @@ function Login_page() {
                         <Input.Password className="ins" placeholder="zadejte Vaše heslo" />
                     </Form.Item>
 
-                    <a href="#"><LockOutlined />Zapomenuté Heslo</a>
+                    <a href="#"><LockOutlined /> Zapomenuté Heslo</a>
 
                     <div id="choice">
                         <button type="submit" id="login">Přihlásit se</button>
