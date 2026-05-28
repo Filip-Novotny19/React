@@ -20,6 +20,7 @@ function App() {
             </Content>
             <Foot />
         </Layout>
+
         </div>
         </Router>
     );
