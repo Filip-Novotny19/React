@@ -1,42 +1,46 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import axios from 'axios';
 import '../../../styles/reset.css';
 import './Main.css';
-import { Layout, Input, Divider, Form, Modal } from 'antd';
-import { LockOutlined } from '@ant-design/icons';
-import { validateAndShow } from '../../../Modal.js';
+import {Layout, Input, Divider, Form, Modal} from 'antd';
+import {LockOutlined} from '@ant-design/icons';
+import {validateAndShow} from '../../../modal.js';
+import {useNavigate} from 'react-router-dom';
 
-const { Content } = Layout;
+const {Content} = Layout;
 
 function Login_page() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [formData, setFormData] = useState({ email: '', password: '' });
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({email: '', password: ''});
+    const [isError, setIsError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleOk = () => setIsModalOpen(false);
+    const handleOk = () => {
+        setIsModalOpen(false);
+        setIsError(false)
+    };
     const showModal = () => setIsModalOpen(true);
 
     const onFinish = async (values) => {
-        setFormData(values);
 
-        validateAndShow(values, showModal);
-
-
-
-        const BASE_URL = 'http://localhost:3000';
-        const APP_ID = '85d6598db0bf3f62afd5db8507';
-        const config = {
-            headers:
-                {
-                    'Content-Type': 'application/json',
-                    'Accept-Language': 'cs'
-                }
-        }
 
         try {
+            const BASE_URL = 'http://localhost:3000';
+            const APP_ID = '85d6598db0bf3f62afd5db8507';
+            const config = {
+                headers:
+                    {
+                        'Content-Type': 'application/json',
+                        'Accept-Language': 'cs'
+                    }
+            }
+
+
             const authRes = await axios.post(`${BASE_URL}/tokens`,
                 {
                     "setup": {
-                        "setup_id":"1",
+                        "setup_id": "1",
                         "language_id": "cs",
                         "allowed_gps": "false",
                         "allowed_notifications": false
@@ -55,8 +59,7 @@ function Login_page() {
                     'X-External-App-Id': APP_ID
                 },
 
-                    config
-
+                config
             );
 
             const token = authRes.data.data.token_id;
@@ -64,9 +67,9 @@ function Login_page() {
 
 
             const userLogin = await axios.post(`${BASE_URL}/tokens/${token}/actions/login`, {
-                    "login_type":"email",
-                    "login_value":values.email,
-                    "password":values.password,
+                    "login_type": "email",
+                    "login_value": values.email,
+                    "password": values.password,
                     "X-External-App-Id": APP_ID
                 },
 
@@ -90,15 +93,27 @@ function Login_page() {
             });
 
 
-
-
             console.log("Customer information received");
-            console.dir(userRes.data.data.customers);
+            console.dir(userRes.data.data);
+            navigate('/profile', {state: {email: userRes.data.data.personal_information.email, customerId: customer}});
+            setFormData(values);
 
-        } catch (error) {
-            console.error("API Failed:");
-            console.error(error.response ? error.response.data : error.message);
+            validateAndShow(values, showModal);
+        } catch(error) {
+            const status = error.response ? error.response.status : null;
+            let msg = "Nastala neočekávaná chyba, zkuste to později";
+            if (status === 401) {
+                localStorage.removeItem('token');
+                msg = "Chybné přihlašovací údaje, zkuste znovu";
+            } else if (status === 404) {
+                msg = "Stránka nebo uživatel už neexistuje";
+            }
+            setErrorMessage(msg);
+            setIsError(true);
         }
+        ;
+
+
 
     };
 
@@ -111,23 +126,23 @@ function Login_page() {
                     name="email"
                     className="input"
                     rules={[
-                        { required: true, message: 'Nezadaný Email' },
-                        { type: 'email', message: 'Špatný formát emailu' }
+                        {required: true, message: 'Nezadaný Email'},
+                        {type: 'email', message: 'Špatný formát emailu'}
                     ]}
                 >
-                    <Input className="ins" placeholder="zadejte Váš Email" />
+                    <Input className="ins" placeholder="zadejte Váš Email"/>
                 </Form.Item>
 
                 <Form.Item
                     className="input"
                     label="Heslo"
                     name="password"
-                    rules={[{ required: true, message: 'Nezadané Heslo' }]}
+                    rules={[{required: true, message: 'Nezadané Heslo'}]}
                 >
-                    <Input.Password className="ins" placeholder="zadejte Vaše heslo" />
+                    <Input.Password className="ins" placeholder="zadejte Vaše heslo"/>
                 </Form.Item>
 
-                <a href="#"><LockOutlined /> Zapomenuté Heslo</a>
+                <a href="#"><LockOutlined/> Zapomenuté Heslo</a>
 
                 <div id="choice">
 
@@ -139,7 +154,7 @@ function Login_page() {
                 </div>
             </Form>
 
-            <Modal title="Vaše Informace" open={isModalOpen} onOk={handleOk} onCancel={handleOk}>
+            <Modal id="info" title="Vaše Informace" open={isModalOpen} onOk={handleOk} onCancel={handleOk}>
                 <div className="modal-par">
                     <h2 className="modal-h">Email: </h2>
                     <p className="modal-p">{formData.email}</p>
@@ -148,6 +163,9 @@ function Login_page() {
                     <h2 className="modal-h">Heslo: </h2>
                     <p className="modal-p">{formData.password}</p>
                 </div>
+            </Modal>
+            <Modal id="error" title="CHYBA" open={isError} onOk={handleOk} onCancel={handleOk}>
+                <p className="modal-p">{errorMessage}</p>
             </Modal>
         </Content>
     );

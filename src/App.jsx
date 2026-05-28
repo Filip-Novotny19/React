@@ -1,6 +1,7 @@
 import Head from './components/Layout/Header/Head.jsx';
 import Login_page from './components/pages/Login_page/Login_page.jsx';
 import Foot from './components/Layout/Footer/Foot.jsx';
+import Profile from './components/pages/Profile_page/Profile.jsx'
 import './components/pages/Login_page/Main.css';
 import {Layout} from "antd";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -15,6 +16,7 @@ function App() {
             <Content id="content">
                 <Routes>
                     <Route path="/" element={<Login_page />}/>
+                    <Route path="/" element={<Profile />} />
                     <Route path="*" element={<div>Stránka nenalezena</div>} />
                 </Routes>
             </Content>
