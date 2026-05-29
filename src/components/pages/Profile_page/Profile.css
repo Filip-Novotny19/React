@@ -6,31 +6,16 @@
     align-items: center;
     justify-content: center;
 }
-#cont p
-{
-    color: var(--text-p);
 
-}
-#container
+button
 {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    max-width: 50rem;
-    background: var(--footer);
-    padding: 1rem 2rem;
+    background-color: var(--button1);
+    border: none;
     border-radius: 2rem;
-    line-height: 1.5rem;
-
+    height: 2rem;
+    width: 6rem;
 }
-#cont h2
+button:hover
 {
-    color: var(--text-p);
-    font-weight: bold;
-
-}
-#cont h1
-{
-    font-size: 1.1rem;
-    font-weight: bold;
+    background-color: var(--button1-hover);
 }

@@ -38,7 +38,7 @@ function Foot() {
             <div className="col3">
                 <h1>Bezplatná linka</h1>
                 <div id="phonenum">
-                    <PhoneOutlined id="phone" />
+                    <PhoneOutlined id="phone-icon" />
                     <p id="num"> 800 606 806</p>
                     <p id="day">po-pá 7.30-16.00</p>
                 </div>

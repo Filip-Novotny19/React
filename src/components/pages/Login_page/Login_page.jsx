@@ -10,17 +10,17 @@ import {useNavigate} from 'react-router-dom';
 const {Content} = Layout;
 
 function Login_page() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({email: '', password: ''});
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+
     const handleOk = () => {
-        setIsModalOpen(false);
+
         setIsError(false)
     };
-    const showModal = () => setIsModalOpen(true);
+
 
     const onFinish = async (values) => {
 
@@ -63,6 +63,7 @@ function Login_page() {
             );
 
             const token = authRes.data.data.token_id;
+            localStorage.setItem('token', token);
             console.log("Token acquired:", token);
 
 
@@ -154,16 +155,7 @@ function Login_page() {
                 </div>
             </Form>
 
-            <Modal id="info" title="Vaše Informace" open={isModalOpen} onOk={handleOk} onCancel={handleOk}>
-                <div className="modal-par">
-                    <h2 className="modal-h">Email: </h2>
-                    <p className="modal-p">{formData.email}</p>
-                </div>
-                <div className="modal-par">
-                    <h2 className="modal-h">Heslo: </h2>
-                    <p className="modal-p">{formData.password}</p>
-                </div>
-            </Modal>
+
             <Modal id="error" title="CHYBA" open={isError} onOk={handleOk} onCancel={handleOk}>
                 <p className="modal-p">{errorMessage}</p>
             </Modal>
