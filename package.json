@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "proxy": "node proxy.js",
-    "start": "node proxy.js && npm run dev"
+    "start": "node proxy.js & npm run dev"
   },
   "dependencies": {
     "@ant-design/icons": "^6.2.3",

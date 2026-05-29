@@ -95,7 +95,7 @@ function Login_page() {
 
             console.log("Customer information received");
             console.dir(userRes.data.data);
-            navigate('/profile', {state: {email: userRes.data.data.personal_information.email, customerId: customer}});
+            navigate('/profile', {state: {info: userRes.data.data,}});
             setFormData(values);
 
             validateAndShow(values, showModal);

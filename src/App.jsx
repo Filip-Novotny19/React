@@ -16,7 +16,7 @@ function App() {
             <Content id="content">
                 <Routes>
                     <Route path="/" element={<Login_page />}/>
-                    <Route path="/" element={<Profile />} />
+                    <Route path="/profile" element={<Profile />}/>
                     <Route path="*" element={<div>Stránka nenalezena</div>} />
                 </Routes>
             </Content>
